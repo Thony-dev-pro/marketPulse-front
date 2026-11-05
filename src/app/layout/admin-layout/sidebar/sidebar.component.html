@@ -1,0 +1,55 @@
+<nav class="sidebar" [class.sidebar--open]="open()">
+  <div class="sidebar__logo">
+    <div class="sidebar__logo-icon" aria-hidden="true">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="14" stroke="#4F46E5" stroke-width="3" fill="none"/>
+        <circle cx="16" cy="16" r="6" fill="#4F46E5"/>
+      </svg>
+    </div>
+    <span class="sidebar__app-name">{{ appName }}</span>
+  </div>
+
+  <button class="sidebar__connect-btn" type="button">+ Connect New Account</button>
+
+  <div class="sidebar__menu">
+    @for (group of menu; track group.label) {
+      @if (group.label) {
+        <p class="sidebar__group-label">{{ group.label }}</p>
+      }
+      @for (item of group.items; track item.route) {
+        <a
+          class="sidebar__item"
+          [routerLink]="item.route"
+          routerLinkActive="sidebar__item--active"
+          (click)="close()"
+        >
+          <span class="sidebar__item-icon" aria-hidden="true">
+            @if (item.icon === 'dashboard') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            } @else if (item.icon === 'performance') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            } @else if (item.icon === 'hotjar') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            } @else if (item.icon === 'tickets') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            } @else if (item.icon === 'agents') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            } @else if (item.icon === 'customers') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            } @else if (item.icon === 'products') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            } @else if (item.icon === 'orders') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            } @else if (item.icon === 'reports') {
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            }
+          </span>
+          <span class="sidebar__item-label">{{ item.label }}</span>
+          @if (item.badge) {
+            <span class="sidebar__badge sidebar__badge--{{ item.badge.variant }}">{{ item.badge.text }}</span>
+          }
+        </a>
+      }
+    }
+  </div>
+</nav>

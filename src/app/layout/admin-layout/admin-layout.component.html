@@ -1,0 +1,14 @@
+<div class="admin-layout">
+  <app-sidebar [open]="sidebarOpen()" (closed)="closeSidebar()" />
+
+  @if (sidebarOpen()) {
+    <div class="admin-layout__backdrop" (click)="closeSidebar()" aria-hidden="true"></div>
+  }
+
+  <div class="admin-layout__main">
+    <app-header (menuToggled)="toggleSidebar()" />
+    <main class="admin-layout__content">
+      <router-outlet />
+    </main>
+  </div>
+</div>

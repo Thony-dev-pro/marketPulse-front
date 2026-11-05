@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,7 @@ import { AuthApiService } from '../../services/auth-api.service';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder);
   private authService = inject(AuthApiService);
   private router = inject(Router);
@@ -28,6 +28,12 @@ export class LoginComponent {
 
   get email() { return this.form.get('email')!; }
   get password() { return this.form.get('password')!; }
+
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigateByUrl('/admin/dashboard');
+    }
+  }
 
   togglePassword() {
     this.showPassword.update(v => !v);
@@ -48,7 +54,7 @@ export class LoginComponent {
     this.authService.login(email!, password!).subscribe({
       next: (res) => {
         console.log('Login API call result:', res);
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/';
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/admin/dashboard';
         this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
