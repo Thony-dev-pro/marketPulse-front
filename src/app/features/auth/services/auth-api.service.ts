@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class AuthApiService {
   login(email: string, password: string, rememberMe: boolean): Observable<void> {
     // TODO: replace with real API call, e.g.:
     // return this.http.post<void>('/api/auth/login', { email, password, rememberMe });
