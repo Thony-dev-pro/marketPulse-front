@@ -1,13 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService {
-  login(email: string, password: string, rememberMe: boolean): Observable<void> {
-    // TODO: replace with real API call, e.g.:
-    // return this.http.post<void>('/api/auth/login', { email, password, rememberMe });
-    console.log('login', { email, password, rememberMe });
-    return of(undefined);
+  constructor(private http: HttpClient) {}
+
+  login(email: string, password: string): Observable<void> {
+    const body: LoginRequest = { email, password };
+    return this.http.post<void>(`${environment.baseUrlBack}/auth/login`, body, {
+      withCredentials: true,
+    });
   }
 
   loginWithGoogle(): void {

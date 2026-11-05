@@ -84,14 +84,6 @@
         }
       </div>
 
-      <div class="remember-row">
-        <label class="checkbox-label">
-          <input type="checkbox" formControlName="rememberMe" />
-          Remember Me
-        </label>
-        <a routerLink="/forgot-password" class="link">Forgot Password?</a>
-      </div>
-
       @if (errorMessage()) {
         <p class="error-banner">{{ errorMessage() }}</p>
       }

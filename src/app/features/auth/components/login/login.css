@@ -194,24 +194,7 @@
   margin-bottom: 12px;
 }
 
-/* Remember row */
-.remember-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--color-text);
-  cursor: pointer;
-}
-
-/* Primary button */
+/* Error text */
 .btn-primary {
   width: 100%;
   height: var(--input-height);

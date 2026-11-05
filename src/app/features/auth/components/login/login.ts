@@ -20,7 +20,6 @@ export class LoginComponent {
   form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
-    rememberMe: [false],
   });
 
   loading = signal(false);
@@ -45,13 +44,15 @@ export class LoginComponent {
     }
     this.loading.set(true);
     this.errorMessage.set('');
-    const { email, password, rememberMe } = this.form.value;
-    this.authService.login(email!, password!, rememberMe!).subscribe({
-      next: () => {
+    const { email, password } = this.form.value;
+    this.authService.login(email!, password!).subscribe({
+      next: (res) => {
+        console.log('Login API call result:', res);
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') ?? '/';
         this.router.navigateByUrl(returnUrl);
       },
       error: (err) => {
+        console.error('Login API call error:', err);
         this.errorMessage.set(err?.message ?? 'Login failed. Please try again.');
         this.loading.set(false);
       },
