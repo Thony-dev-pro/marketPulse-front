@@ -1,10 +1,11 @@
 import { Component, output, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthApiService } from '../../../features/auth/services/auth-api.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
+  imports: [RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

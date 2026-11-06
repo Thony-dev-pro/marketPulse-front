@@ -62,6 +62,11 @@ export const adminRoutes: Routes = [
         loadComponent: () =>
           import('../../pages/placeholder/placeholder-page.component').then(m => m.PlaceholderPageComponent),
       },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('../../pages/profile/profile.component').then(m => m.ProfileComponent),
+      },
     ],
   },
 ];

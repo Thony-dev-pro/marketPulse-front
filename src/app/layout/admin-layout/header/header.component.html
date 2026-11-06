@@ -31,7 +31,7 @@
 
       @if (dropdownOpen()) {
         <div class="header__dropdown">
-          <button type="button" class="header__dropdown-item">Profile</button>
+          <button type="button" class="header__dropdown-item" routerLink="/admin/profile" (click)="toggleDropdown()">Profil</button>
           <button type="button" class="header__dropdown-item header__dropdown-item--danger" (click)="logout()">Logout</button>
         </div>
       }

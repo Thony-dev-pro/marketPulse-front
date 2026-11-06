@@ -1,0 +1,49 @@
+<div class="profile">
+  <div class="profile__header">
+    <h1 class="profile__title">Mon profil</h1>
+    <p class="profile__subtitle">Gérez les paramètres de votre profil</p>
+  </div>
+
+  <section class="profile__photo-section">
+    <h2 class="profile__section-title">Votre photo de profil</h2>
+    <div class="profile__photo-row">
+      <img
+        class="profile__avatar"
+        [src]="avatarSrc()"
+        alt="Photo de profil"
+      />
+      <div class="profile__photo-actions">
+        <button type="button" class="btn btn--primary" (click)="triggerFileInput(fileInput)">
+          Changer de photo
+        </button>
+        <button type="button" class="btn btn--outlined">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2" aria-hidden="true">
+            <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>
+          </svg>
+          Supprimer
+        </button>
+        <input
+          #fileInput
+          type="file"
+          accept="image/*"
+          class="profile__file-input"
+          (change)="onAvatarChange($event)"
+          aria-label="Changer de photo"
+        />
+      </div>
+    </div>
+    <p class="profile__photo-hint">Ajoutez votre photo. La taille recommandée est 256×256px</p>
+  </section>
+
+  <form [formGroup]="form" class="profile__form">
+    <div class="profile__field">
+      <label for="email" class="profile__label">Adresse email</label>
+      <div class="profile__email-row">
+        <input id="email" type="email" formControlName="email" class="profile__input" [class.profile__input--disabled]="!isEmailEditing()" />
+        <button type="button" class="btn btn--outlined btn--sm" (click)="toggleEmailEditing()">
+          {{ isEmailEditing() ? 'Valider' : 'Modifier' }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
