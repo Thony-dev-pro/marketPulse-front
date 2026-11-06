@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { UserApiService } from './services/user-api.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,12 +11,18 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 })
 export class ProfileComponent {
   private fb = inject(FormBuilder);
+  private userApi = inject(UserApiService);
 
   avatarSrc = signal('images/avatar-placeholder.svg');
 
   form = this.fb.group({
-    email: [{ value: 'jubeo.hernandez@scoppe.fr', disabled: true }],
+    email: [{ value: this.getStoredEmail(), disabled: true }],
   });
+
+  private getStoredEmail(): string {
+    const raw = localStorage.getItem('user');
+    return raw ? JSON.parse(raw).email : '';
+  }
 
   isEmailEditing = signal(false);
 
@@ -30,6 +37,10 @@ export class ProfileComponent {
     const emailControl = this.form.get('email');
     if (emailControl) {
       if (this.isEmailEditing()) {
+        const email = emailControl.value;
+        if (email) {
+          this.userApi.updateEmail(email).subscribe();
+        }
         emailControl.disable();
         this.isEmailEditing.set(false);
       } else {

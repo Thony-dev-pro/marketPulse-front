@@ -8,6 +8,14 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface LoginResponse {
+  user: {
+    id: number;
+    email: string;
+    status: number;
+  };
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthApiService {
   private loggedIn = signal(false);
@@ -18,11 +26,14 @@ export class AuthApiService {
     return this.loggedIn();
   }
 
-  login(email: string, password: string): Observable<void> {
+  login(email: string, password: string): Observable<LoginResponse> {
     const body: LoginRequest = { email, password };
-    return this.http.post<void>(`${environment.baseUrlBack}/auth/login`, body, {
+    return this.http.post<LoginResponse>(`${environment.baseUrlBack}/auth/login`, body, {
       withCredentials: true,
-    }).pipe(tap(() => this.loggedIn.set(true)));
+    }).pipe(tap((res) => {
+      localStorage.setItem('user', JSON.stringify(res.user));
+      this.loggedIn.set(true);
+    }));
   }
 
   logout(): void {
