@@ -46,9 +46,8 @@ export const adminRoutes: Routes = [
       },
       {
         path: 'products',
-        data: { title: 'Products' },
-        loadComponent: () =>
-          import('../../pages/placeholder/placeholder-page.component').then(m => m.PlaceholderPageComponent),
+        loadChildren: () =>
+          import('../../features/products/products.routes').then(m => m.productsRoutes),
       },
       {
         path: 'orders',

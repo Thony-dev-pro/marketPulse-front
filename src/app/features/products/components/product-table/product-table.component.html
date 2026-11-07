@@ -1,0 +1,36 @@
+<div class="table-wrap">
+  <div class="table-header">
+    <div class="th th--check">
+      <input
+        type="checkbox"
+        [checked]="allSelected()"
+        (change)="toggleAll($any($event.target).checked)"
+        aria-label="Select all products"
+      />
+    </div>
+    <div class="th">PRODUCT DETAILS</div>
+    <div class="th">CATEGORY</div>
+    <div class="th">OPTIONS</div>
+    <div class="th">PRICE</div>
+    <div class="th">QTY</div>
+    <div class="th">SKU</div>
+    <div class="th">RATE</div>
+    <div class="th">ACTIONS</div>
+  </div>
+
+  @for (product of products(); track product.id) {
+    <app-product-row
+      [product]="product"
+      [selected]="isSelected(product.id)"
+      (selectionChanged)="toggleOne(product.id, $event)"
+      (editClicked)="editClicked.emit($event)"
+      (menuClicked)="menuClicked.emit($event)"
+    />
+  } @empty {
+    <div class="empty">No products found.</div>
+  }
+
+  @if (selectedIds().size > 0) {
+    <div class="selection-bar">{{ selectedIds().size }} product(s) selected</div>
+  }
+</div>

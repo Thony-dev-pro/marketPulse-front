@@ -1,0 +1,10 @@
+.products-page {
+  width: 100%;
+}
+
+.products-page__title {
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--color-text);
+  margin: 0 0 24px;
+}

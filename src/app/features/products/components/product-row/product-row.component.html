@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="cell cell--check">
+    <input
+      type="checkbox"
+      [checked]="selected()"
+      (change)="selectionChanged.emit($any($event.target).checked)"
+      [attr.aria-label]="'Select ' + product().name"
+    />
+  </div>
+
+  <div class="cell cell--details">
+    <div class="thumb" [style.background]="product().thumbBg">
+      <img [src]="product().imageUrl" [alt]="product().name" width="40" height="40" />
+    </div>
+    <div class="details-text">
+      <span class="name">{{ product().name }}</span>
+      <span class="desc">{{ product().description }}</span>
+    </div>
+  </div>
+
+  <div class="cell cell--category">
+    @for (cat of product().categories; track cat) {
+      <span class="tag">{{ cat }}</span>
+    }
+  </div>
+
+  <div class="cell cell--options">
+    <app-color-dots [options]="product().options" />
+  </div>
+
+  <div class="cell cell--price">${{ product().price.toLocaleString() }}</div>
+
+  <div class="cell cell--stock">{{ product().stock }}</div>
+
+  <div class="cell cell--sku">{{ product().sku }}</div>
+
+  <div class="cell cell--rate">
+    <app-rating-stars [rating]="product().rating" />
+    <span class="rate-text">{{ product().rating }} ({{ product().reviewCount }})</span>
+  </div>
+
+  <div class="cell cell--actions">
+    <button class="btn-edit" type="button" (click)="editClicked.emit(product())">Edit</button>
+    <button class="btn-menu" type="button" (click)="menuClicked.emit(product())" aria-label="More options">···</button>
+  </div>
+</div>

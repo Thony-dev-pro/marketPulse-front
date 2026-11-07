@@ -1,0 +1,14 @@
+<div class="products-page">
+  <h1 class="products-page__title">Products</h1>
+
+  <app-product-toolbar
+    (newProduct)="onNewProduct()"
+    (productSelected)="onProductSelected($event)"
+  />
+
+  <app-product-table
+    [products]="products()"
+    (editClicked)="onEdit($event)"
+    (menuClicked)="onMenu($event)"
+  />
+</div>

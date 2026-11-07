@@ -1,0 +1,30 @@
+<div class="dropdown" role="listbox" aria-label="Search results">
+  <div class="dropdown__collection">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+    </svg>
+    Chairs Collections
+  </div>
+
+  @for (product of results(); track product.id; let i = $index) {
+    <div
+      class="dropdown__item"
+      [class.dropdown__item--active]="activeIndex() === i"
+      role="option"
+      [attr.aria-selected]="activeIndex() === i"
+      (click)="selected.emit(product)"
+    >
+      <div class="dropdown__thumb" [style.background]="product.thumbBg">
+        <img [src]="product.imageUrl" [alt]="product.name" width="32" height="32" />
+      </div>
+      <div class="dropdown__info">
+        <span class="dropdown__name">{{ product.name }}</span>
+        <span class="dropdown__price">${{ product.price.toLocaleString() }}.00</span>
+      </div>
+    </div>
+  }
+
+  @if (results().length > 0) {
+    <div class="dropdown__footer">{{ results().length }} More items...</div>
+  }
+</div>

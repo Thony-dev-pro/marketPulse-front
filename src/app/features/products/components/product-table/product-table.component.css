@@ -1,0 +1,40 @@
+.table-wrap {
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 40px 2fr 1fr 1fr 80px 60px 80px 1fr 100px;
+  gap: 12px;
+  padding: 8px 16px;
+  margin-bottom: 4px;
+}
+
+.th {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.th--check input { cursor: pointer; width: 16px; height: 16px; }
+
+.empty {
+  text-align: center;
+  padding: 48px;
+  color: var(--color-text-muted);
+  background: #fff;
+  border-radius: var(--radius);
+}
+
+.selection-bar {
+  margin-top: 12px;
+  padding: 10px 16px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 500;
+}
