@@ -1,5 +1,6 @@
-import { Component, output, signal, inject } from '@angular/core';
+import { Component, output, signal, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ProductModalService, Category } from './services/product-modal.service';
 
 export interface ProductFormData {
   name: string;
@@ -16,12 +17,14 @@ export interface ProductFormData {
   templateUrl: './product-modal.component.html',
   styleUrl: './product-modal.component.css',
 })
-export class ProductModalComponent {
+export class ProductModalComponent implements OnInit {
   close = output<void>();
   save = output<ProductFormData>();
 
   isOpen = signal(false);
+  categories = signal<Category[]>([]);
   private fb = inject(FormBuilder);
+  private productModalService = inject(ProductModalService);
   form = this.fb.group({
     name: ['', [Validators.required]],
     description: [''],
@@ -32,6 +35,10 @@ export class ProductModalComponent {
 
   open() {
     this.isOpen.set(true);
+  }
+
+  ngOnInit() {
+    this.productModalService.getCategories().subscribe(data => this.categories.set(data));
   }
 
   closeModal() {

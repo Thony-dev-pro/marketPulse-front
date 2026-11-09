@@ -33,13 +33,10 @@
       <div class="form-group">
         <label for="category_id" class="form-label">Category</label>
         <select id="category_id" formControlName="category_id" class="form-select">
-          <option value="1">Electronics</option>
-          <option value="2">Furnitures</option>
-          <option value="3">Chairs</option>
-          <option value="4">Tables</option>
-          <option value="5">Kitchens</option>
-          <option value="6">Planets</option>
-          <option value="7">Decor</option>
+          <option value="">Select a category</option>
+          @for (cat of categories(); track cat.id) {
+            <option [value]="cat.id">{{ cat.name }}</option>
+          }
         </select>
       </div>
 
