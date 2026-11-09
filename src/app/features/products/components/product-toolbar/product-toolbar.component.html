@@ -24,14 +24,7 @@
       @if (searchValue()) {
         <button class="search-clear" type="button" aria-label="Clear search" (click)="clearSearch()">✕</button>
       }
-      @if (dropdownOpen() && suggestions().length > 0) {
-        <app-product-search-dropdown
-          id="search-listbox"
-          [results]="suggestions()"
-          [activeIndex]="activeIndex()"
-          (selected)="selectProduct($event)"
-        />
-      }
+
     </div>
 
     <select class="pill-select" (change)="onSortChange($event)" aria-label="Sort by">
@@ -46,12 +39,6 @@
     <select class="pill-select" (change)="onCollectionChange($event)" aria-label="Collection type">
       @for (type of collectionTypes; track type) {
         <option [value]="type">{{ type || 'All Collections' }}</option>
-      }
-    </select>
-
-    <select class="pill-select" (change)="onPriceRangeChange($event)" aria-label="Price range">
-      @for (range of priceRanges; track range.label; let i = $index) {
-        <option [value]="i">{{ range.label }}</option>
       }
     </select>
   </div>

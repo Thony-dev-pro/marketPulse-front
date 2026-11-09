@@ -1,22 +1,13 @@
 import { Component, output, input, signal, inject, OnDestroy, ElementRef } from '@angular/core';
 import { ProductsService, SortField, SortDir } from '../../services/products.service';
-import { ProductSearchDropdownComponent } from '../product-search-dropdown/product-search-dropdown.component';
 import { Product } from '../../models/product.model';
-
-const PRICE_RANGES = [
-  { label: 'All Prices', value: null },
-  { label: 'Under $1,000', value: { min: 0, max: 999 } },
-  { label: '$1,000 – $2,500', value: { min: 1000, max: 2500 } },
-  { label: '$2,500 – $5,000', value: { min: 2500, max: 5000 } },
-  { label: 'Over $5,000', value: { min: 5001, max: Infinity } },
-];
 
 const COLLECTION_TYPES = ['', 'Furnitures', 'Chairs', 'Tables', 'Kitchens', 'Planets', 'Decor'];
 
 @Component({
   selector: 'app-product-toolbar',
   standalone: true,
-  imports: [ProductSearchDropdownComponent],
+  imports: [],
   templateUrl: './product-toolbar.component.html',
   styleUrl: './product-toolbar.component.css',
 })
@@ -32,7 +23,6 @@ export class ProductToolbarComponent implements OnDestroy {
   activeIndex = signal(-1);
   suggestions = this.svc.searchSuggestions;
 
-  priceRanges = PRICE_RANGES;
   collectionTypes = COLLECTION_TYPES;
 
   private debounceTimer: ReturnType<typeof setTimeout> | null = null;
@@ -90,10 +80,5 @@ export class ProductToolbarComponent implements OnDestroy {
 
   onCollectionChange(e: Event) {
     this.svc.updateFilters({ collectionType: (e.target as HTMLSelectElement).value });
-  }
-
-  onPriceRangeChange(e: Event) {
-    const idx = Number((e.target as HTMLSelectElement).value);
-    this.svc.updateFilters({ priceRange: PRICE_RANGES[idx].value });
   }
 }

@@ -1,26 +1,28 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ProductsService } from '../services/products.service';
-import { ProductToolbarComponent } from '../components/product-toolbar/product-toolbar.component';
 import { ProductTableComponent } from '../components/product-table/product-table.component';
 import { Product } from '../models/product.model';
 
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [ProductToolbarComponent, ProductTableComponent],
+  imports: [ProductTableComponent],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.css',
 })
-export class ProductsPageComponent {
+export class ProductsPageComponent implements OnInit {
   private svc = inject(ProductsService);
   products = this.svc.filtered;
 
-  onNewProduct() {
-    console.log('New product clicked');
+  ngOnInit() {
+    this.svc.fetchProducts().subscribe({
+      next: (res) => console.log('Products fetched:', res),
+      error: (err) => console.error('Failed to fetch products:', err),
+    });
   }
 
-  onProductSelected(product: Product) {
-    console.log('Product selected from search:', product);
+  onNewProduct() {
+    console.log('New product clicked');
   }
 
   onEdit(product: Product) {

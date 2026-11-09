@@ -1,12 +1,10 @@
 import { Component, input, output } from '@angular/core';
 import { Product } from '../../models/product.model';
-import { RatingStarsComponent } from '../rating-stars/rating-stars.component';
-import { ColorDotsComponent } from '../color-dots/color-dots.component';
 
 @Component({
   selector: 'app-product-row',
   standalone: true,
-  imports: [RatingStarsComponent, ColorDotsComponent],
+  imports: [],
   templateUrl: './product-row.component.html',
   styleUrl: './product-row.component.css',
 })

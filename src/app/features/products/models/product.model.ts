@@ -1,24 +1,14 @@
-export interface ProductOptions {
-  type: 'colors';
-  values: string[];
-}
-
-export interface ProductOptionsText {
-  type: 'text';
-  value: string;
+export interface ProductCategory {
+  id: number;
+  name: string;
 }
 
 export interface Product {
-  id: string;
+  id: number;
   name: string;
+  category_id: number;
   description: string;
-  imageUrl: string;
-  thumbBg: string;
-  categories: string[];
-  options: ProductOptions | ProductOptionsText;
-  price: number;
-  stock: number;
-  sku: string;
-  rating: number;
-  reviewCount: number;
+  unit: string;
+  status: number;
+  category: ProductCategory;
 }

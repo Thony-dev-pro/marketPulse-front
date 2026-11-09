@@ -14,14 +14,14 @@ export class ProductTableComponent {
   editClicked = output<Product>();
   menuClicked = output<Product>();
 
-  selectedIds = signal<Set<string>>(new Set());
+  selectedIds = signal<Set<number>>(new Set());
 
   allSelected = computed(() => {
     const ids = this.selectedIds();
     return this.products().length > 0 && this.products().every(p => ids.has(p.id));
   });
 
-  isSelected(id: string) {
+  isSelected(id: number) {
     return this.selectedIds().has(id);
   }
 
@@ -29,7 +29,7 @@ export class ProductTableComponent {
     this.selectedIds.set(checked ? new Set(this.products().map(p => p.id)) : new Set());
   }
 
-  toggleOne(id: string, checked: boolean) {
+  toggleOne(id: number, checked: boolean) {
     this.selectedIds.update(ids => {
       const next = new Set(ids);
       checked ? next.add(id) : next.delete(id);
