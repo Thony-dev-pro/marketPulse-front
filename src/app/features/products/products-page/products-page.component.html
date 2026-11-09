@@ -12,4 +12,11 @@
     (editClicked)="onEdit($event)"
     (menuClicked)="onMenu($event)"
   />
+
+  @if (modalOpen()) {
+    <app-product-modal
+      (close)="modalOpen.set(false)"
+      (save)="onSaveProduct($event)"
+    />
+  }
 </div>
