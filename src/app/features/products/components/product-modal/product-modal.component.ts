@@ -1,6 +1,6 @@
 import { Component, output, signal, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ProductModalService, Category } from './services/product-modal.service';
+import { ProductModalService, Category, CreateProduct } from './services/product-modal.service';
 
 export interface ProductFormData {
   name: string;
@@ -48,8 +48,9 @@ export class ProductModalComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.save.emit(this.form.value as ProductFormData);
-      this.closeModal();
+      this.productModalService.createProduct(this.form.value as CreateProduct).subscribe(() => {
+        this.closeModal();
+      });
     }
   }
 }
