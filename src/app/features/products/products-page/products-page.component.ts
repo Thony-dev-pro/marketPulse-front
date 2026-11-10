@@ -31,6 +31,10 @@ export class ProductsPageComponent implements OnInit {
     console.log('Edit clicked:', product);
   }
 
+  onDesactivate(product: Product) {
+    this.svc.desactivateProduct(product.id).subscribe();
+  }
+
   onMenu(product: Product) {
     console.log('Menu clicked:', product);
   }

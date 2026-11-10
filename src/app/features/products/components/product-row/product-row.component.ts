@@ -13,5 +13,6 @@ export class ProductRowComponent {
   selected = input(false);
   selectionChanged = output<boolean>();
   editClicked = output<Product>();
+  desactivateClicked = output<Product>();
   menuClicked = output<Product>();
 }

@@ -12,6 +12,7 @@ import { ProductRowComponent } from '../product-row/product-row.component';
 export class ProductTableComponent {
   products = input.required<Product[]>();
   editClicked = output<Product>();
+  desactivateClicked = output<Product>();
   menuClicked = output<Product>();
 
   selectedIds = signal<Set<number>>(new Set());

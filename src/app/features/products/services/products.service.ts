@@ -85,4 +85,9 @@ export class ProductsService {
     return this.http.post<void>(`${environment.baseUrlBack}/products`, product, { withCredentials: true })
       .pipe(switchMap(() => this.fetchProducts()));
   }
+
+  desactivateProduct(id: number): Observable<Product[]> {
+    return this.http.patch<void>(`${environment.baseUrlBack}/products/${id}/desactivate`, {}, { withCredentials: true })
+      .pipe(switchMap(() => this.fetchProducts()));
+  }
 }

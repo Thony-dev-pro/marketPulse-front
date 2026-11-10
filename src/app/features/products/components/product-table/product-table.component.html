@@ -22,6 +22,7 @@
       [selected]="isSelected(product.id)"
       (selectionChanged)="toggleOne(product.id, $event)"
       (editClicked)="editClicked.emit($event)"
+      (desactivateClicked)="desactivateClicked.emit($event)"
       (menuClicked)="menuClicked.emit($event)"
     />
   } @empty {
