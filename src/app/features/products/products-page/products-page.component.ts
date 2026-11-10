@@ -51,7 +51,10 @@ export class ProductsPageComponent implements OnInit {
   }
 
   onSaveEditProduct(data: CreateProduct) {
-    console.log('Edit product:', data);
+    const p = this.productEdit();
+    if (p) {
+      this.svc.updateProduct(p.id, data).subscribe();
+    }
     this.modalOpenEdit.set(false);
   }
 }

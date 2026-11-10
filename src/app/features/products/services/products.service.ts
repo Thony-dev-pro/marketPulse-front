@@ -91,6 +91,11 @@ export class ProductsService {
       .pipe(switchMap(() => this.fetchProducts()));
   }
 
+  updateProduct(id: number, product: CreateProduct): Observable<Product[]> {
+    return this.http.patch<void>(`${environment.baseUrlBack}/products/${id}`, product, { withCredentials: true })
+      .pipe(switchMap(() => this.fetchProducts()));
+  }
+
   searchProducts(name: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${environment.baseUrlBack}/products/search?name=${name}`, {
       withCredentials: true,
