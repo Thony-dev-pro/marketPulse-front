@@ -1,5 +1,8 @@
 <div class="products-page">
-  <app-product-toolbar (searchValue)="onSearchProduct($event)" />
+  <div class="page-header">
+    <app-product-toolbar (searchValue)="onSearchProduct($event)" />
+    <button class="btn-primary" (click)="modalOpen.set(true)">New Product</button>
+  </div>
 
   <app-product-table
     [products]="products()"

@@ -1,0 +1,68 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-header">
+      <h2 id="modal-title" class="modal-title">Edit Product</h2>
+      <button type="button" class="modal-close" (click)="closeModal()" aria-label="Close modal">✕</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name" class="form-label">Product Name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="form-input"
+          placeholder="Enter product name"
+        />
+        @if (form.get('name')?.touched && form.get('name')?.invalid) {
+          <span class="form-error">Product name is required</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-textarea"
+          placeholder="Enter product description"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="category_id" class="form-label">Category</label>
+        <select id="category_id" formControlName="category_id" class="form-select">
+          <option value="">Select a category</option>
+          @for (cat of categories(); track cat.id) {
+            <option [value]="cat.id">{{ cat.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="unit" class="form-label">Unit</label>
+        <input
+          id="unit"
+          type="text"
+          formControlName="unit"
+          class="form-input"
+          placeholder="Enter unit (e.g., unit, set)"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="status" class="form-label">Status</label>
+        <select id="status" formControlName="status" class="form-select">
+          <option value="1">Active</option>
+          <option value="0">Inactive</option>
+        </select>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="form.invalid">Save Product</button>
+      </div>
+    </form>
+  </div>
+</div>
