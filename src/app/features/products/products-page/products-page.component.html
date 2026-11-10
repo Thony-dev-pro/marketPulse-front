@@ -1,11 +1,5 @@
 <div class="products-page">
-  <div class="products-page__header">
-    <h1 class="products-page__title">Products</h1>
-    <button class="btn-new" type="button" (click)="onNewProduct()">
-      <span class="btn-new__icon" aria-hidden="true">+</span>
-      NEW PRODUCT
-    </button>
-  </div>
+  <app-product-toolbar (searchValue)="onSearchProduct($event)" />
 
   <app-product-table
     [products]="products()"

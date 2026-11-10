@@ -1,45 +1,12 @@
-<div class="toolbar">
-  <button class="btn-new" type="button" (click)="newProduct.emit()">
-    <span class="btn-new__icon" aria-hidden="true">+</span>
-    NEW PRODUCT
-  </button>
-
-  <div class="toolbar__controls">
-    <div class="search-wrap" role="combobox" [attr.aria-expanded]="dropdownOpen()" aria-haspopup="listbox" aria-controls="search-listbox">
-      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-      </svg>
-      <input
-        class="search-input"
-        type="search"
-        placeholder="Search products..."
-        aria-label="Search products"
-        aria-autocomplete="list"
-        aria-controls="search-listbox"
-        [value]="searchValue()"
-        (input)="onSearchInput($any($event.target).value)"
-        (keydown)="onSearchKeydown($event)"
-        (focus)="dropdownOpen.set(searchValue().trim().length > 0)"
-      />
-      @if (searchValue()) {
-        <button class="search-clear" type="button" aria-label="Clear search" (click)="clearSearch()">✕</button>
-      }
-
-    </div>
-
-    <select class="pill-select" (change)="onSortChange($event)" aria-label="Sort by">
-      <option value="name-asc">Name A–Z</option>
-      <option value="name-desc">Name Z–A</option>
-      <option value="price-asc">Price ↑</option>
-      <option value="price-desc">Price ↓</option>
-      <option value="rating-desc">Rating ↓</option>
-      <option value="rating-asc">Rating ↑</option>
-    </select>
-
-    <select class="pill-select" (change)="onCollectionChange($event)" aria-label="Collection type">
-      @for (type of collectionTypes; track type) {
-        <option [value]="type">{{ type || 'All Collections' }}</option>
-      }
-    </select>
-  </div>
+<div class="search-wrap">
+  <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </svg>
+  <input
+    class="search-input"
+    type="search"
+    placeholder="Search products..."
+    aria-label="Search products"
+    (input)="onSearchInput($any($event.target).value)"
+  />
 </div>

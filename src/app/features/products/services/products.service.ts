@@ -90,4 +90,10 @@ export class ProductsService {
     return this.http.patch<void>(`${environment.baseUrlBack}/products/${id}/desactivate`, {}, { withCredentials: true })
       .pipe(switchMap(() => this.fetchProducts()));
   }
+
+  searchProducts(name: string): Observable<Product[]> {
+    return this.http.get<Product[]>(`${environment.baseUrlBack}/products/search?name=${name}`, {
+      withCredentials: true,
+    }).pipe(tap(products => this.all.set(products)));
+  }
 }

@@ -2,12 +2,13 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductsService, CreateProduct } from '../services/products.service';
 import { ProductTableComponent } from '../components/product-table/product-table.component';
 import { ProductModalComponent } from '../components/product-modal/product-modal.component';
+import { ProductToolbarComponent } from '../components/product-toolbar/product-toolbar.component';
 import { Product } from '../models/product.model';
 
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [ProductTableComponent, ProductModalComponent],
+  imports: [ProductTableComponent, ProductModalComponent, ProductToolbarComponent],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.css',
 })
@@ -23,12 +24,12 @@ export class ProductsPageComponent implements OnInit {
     });
   }
 
-  onNewProduct() {
-    this.modalOpen.set(true);
-  }
-
   onEdit(product: Product) {
     console.log('Edit clicked:', product);
+  }
+
+  onSearchProduct(name: string) {
+    this.svc.searchProducts(name).subscribe();
   }
 
   onDesactivate(product: Product) {
