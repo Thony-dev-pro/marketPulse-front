@@ -81,6 +81,18 @@
 
 .btn-edit:hover { background: #e5e7eb; }
 
+.btn-desactivate {
+  padding: 4px 12px;
+  background: #f3f4f6;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--color-text);
+}
+
+.btn-desactivate:hover { background: #e5e7eb; }
+
 .btn-menu {
   padding: 4px 8px;
   background: #f3f4f6;
