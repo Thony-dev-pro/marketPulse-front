@@ -4,6 +4,7 @@ import { ProductTableComponent } from '../components/product-table/product-table
 import { ProductModalComponent } from '../components/product-modal/product-modal.component';
 import { ProductEditModalComponent } from '../components/product-edit-modal/product-edit-modal.component';
 import { ProductToolbarComponent } from '../components/product-toolbar/product-toolbar.component';
+import { ProductModalService, Category } from '../components/product-modal/services/product-modal.service';
 import { Product } from '../models/product.model';
 
 @Component({
@@ -15,16 +16,19 @@ import { Product } from '../models/product.model';
 })
 export class ProductsPageComponent implements OnInit {
   private svc = inject(ProductsService);
+  private productModalService = inject(ProductModalService);
   products = this.svc.filtered;
   modalOpen = signal(false);
   modalOpenEdit = signal(false);
   productEdit = signal<Product | null>(null);
+  categories = signal<Category[]>([]);
 
   ngOnInit() {
     this.svc.fetchProducts().subscribe({
       next: (res) => console.log('Products fetched:', res),
       error: (err) => console.error('Failed to fetch products:', err),
     });
+    this.productModalService.getCategories().subscribe(data => this.categories.set(data));
   }
 
   onEdit(product: Product) {
@@ -56,5 +60,14 @@ export class ProductsPageComponent implements OnInit {
       this.svc.updateProduct(p.id, data).subscribe();
     }
     this.modalOpenEdit.set(false);
+  }
+
+  onChangeCategory(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    if (value) {
+      this.svc.updateFilters({ collectionType: value });
+    } else {
+      this.svc.updateFilters({ collectionType: '' });
+    }
   }
 }

@@ -1,6 +1,12 @@
 <div class="products-page">
   <div class="page-header">
     <app-product-toolbar (searchValue)="onSearchProduct($event)" />
+    <select class="form-select" aria-label="Filter by category" (change)="onChangeCategory($event)">
+      <option value="">All categories</option>
+      @for (cat of categories(); track cat.id) {
+        <option [value]="cat.id">{{ cat.name }}</option>
+      }
+    </select>
     <button class="btn-primary" (click)="modalOpen.set(true)">New Product</button>
   </div>
 
