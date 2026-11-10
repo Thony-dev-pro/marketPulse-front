@@ -65,9 +65,9 @@ export class ProductsPageComponent implements OnInit {
   onChangeCategory(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
     if (value) {
-      this.svc.updateFilters({ collectionType: value });
+      this.svc.fetchProductsByCategory(Number(value)).subscribe();
     } else {
-      this.svc.updateFilters({ collectionType: '' });
+      this.svc.fetchProducts().subscribe();
     }
   }
 }

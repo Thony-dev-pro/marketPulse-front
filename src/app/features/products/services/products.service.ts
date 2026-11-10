@@ -101,4 +101,10 @@ export class ProductsService {
       withCredentials: true,
     }).pipe(tap(products => this.all.set(products)));
   }
+
+  fetchProductsByCategory(id: number): Observable<Product[]> {
+    return this.http.get<Product[]>(`${environment.baseUrlBack}/products/category/${id}`, {
+      withCredentials: true,
+    }).pipe(tap(products => this.all.set(products)));
+  }
 }
