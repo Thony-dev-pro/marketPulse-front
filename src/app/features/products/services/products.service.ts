@@ -1,6 +1,6 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable, switchMap, tap } from 'rxjs';
 import { Product } from '../models/product.model';
 import { environment } from '../../../../environments/environment';
 
@@ -12,6 +12,14 @@ export interface ProductFilters {
   sortField: SortField;
   sortDir: SortDir;
   collectionType: string;
+}
+
+export interface CreateProduct {
+  name: string;
+  category_id: number;
+  description: string;
+  unit: string;
+  status: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -71,5 +79,10 @@ export class ProductsService {
     return this.http.get<Product[]>(`${environment.baseUrlBack}/products`, {
       withCredentials: true,
     }).pipe(tap(products => this.all.set(products)));
+  }
+
+  createProduct(product: CreateProduct): Observable<Product[]> {
+    return this.http.post<void>(`${environment.baseUrlBack}/products`, product, { withCredentials: true })
+      .pipe(switchMap(() => this.fetchProducts()));
   }
 }

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ProductsService } from '../services/products.service';
+import { ProductsService, CreateProduct } from '../services/products.service';
 import { ProductTableComponent } from '../components/product-table/product-table.component';
 import { ProductModalComponent } from '../components/product-modal/product-modal.component';
 import { Product } from '../models/product.model';
@@ -35,8 +35,8 @@ export class ProductsPageComponent implements OnInit {
     console.log('Menu clicked:', product);
   }
 
-  onSaveProduct(data: any) {
-    console.log('New product data:', data);
-    // TODO: call API to save product
+  onSaveProduct(data: CreateProduct) {
+    this.svc.createProduct(data).subscribe();
+    this.modalOpen.set(false);
   }
 }
