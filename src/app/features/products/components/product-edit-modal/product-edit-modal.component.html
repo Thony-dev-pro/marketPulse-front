@@ -1,4 +1,4 @@
-<div class="modal-overlay" (click)="closeModal()">
+<div class="modal-overlay" (click)="$event.stopPropagation()">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-header">
       <h2 id="modal-title" class="modal-title">Edit Product</h2>

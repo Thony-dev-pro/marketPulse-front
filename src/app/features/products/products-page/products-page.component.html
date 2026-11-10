@@ -17,4 +17,12 @@
       (save)="onSaveProduct($event)"
     />
   }
+
+  @if (modalOpenEdit()) {
+    <app-product-edit-modal
+      [product]="productEdit()"
+      (close)="modalOpenEdit.set(false)"
+      (save)="onSaveEditProduct($event)"
+    />
+  }
 </div>

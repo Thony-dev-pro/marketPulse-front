@@ -2,13 +2,14 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductsService, CreateProduct } from '../services/products.service';
 import { ProductTableComponent } from '../components/product-table/product-table.component';
 import { ProductModalComponent } from '../components/product-modal/product-modal.component';
+import { ProductEditModalComponent } from '../components/product-edit-modal/product-edit-modal.component';
 import { ProductToolbarComponent } from '../components/product-toolbar/product-toolbar.component';
 import { Product } from '../models/product.model';
 
 @Component({
   selector: 'app-products-page',
   standalone: true,
-  imports: [ProductTableComponent, ProductModalComponent, ProductToolbarComponent],
+  imports: [ProductTableComponent, ProductModalComponent, ProductEditModalComponent, ProductToolbarComponent],
   templateUrl: './products-page.component.html',
   styleUrl: './products-page.component.css',
 })
@@ -16,6 +17,8 @@ export class ProductsPageComponent implements OnInit {
   private svc = inject(ProductsService);
   products = this.svc.filtered;
   modalOpen = signal(false);
+  modalOpenEdit = signal(false);
+  productEdit = signal<Product | null>(null);
 
   ngOnInit() {
     this.svc.fetchProducts().subscribe({
@@ -26,6 +29,8 @@ export class ProductsPageComponent implements OnInit {
 
   onEdit(product: Product) {
     console.log('Edit clicked:', product);
+    this.productEdit.set(product);
+    this.modalOpenEdit.set(true);
   }
 
   onSearchProduct(name: string) {
@@ -43,5 +48,10 @@ export class ProductsPageComponent implements OnInit {
   onSaveProduct(data: CreateProduct) {
     this.svc.createProduct(data).subscribe();
     this.modalOpen.set(false);
+  }
+
+  onSaveEditProduct(data: CreateProduct) {
+    console.log('Edit product:', data);
+    this.modalOpenEdit.set(false);
   }
 }

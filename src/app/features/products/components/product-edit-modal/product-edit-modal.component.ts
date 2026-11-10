@@ -1,6 +1,7 @@
-import { Component, output, OnInit, inject, signal } from '@angular/core';
+import { Component, output, OnInit, inject, signal, input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductModalService, Category } from '../product-modal/services/product-modal.service';
+import { Product } from '../../models/product.model';
 
 export interface ProductFormData {
   name: string;
@@ -21,6 +22,7 @@ export class ProductEditModalComponent implements OnInit {
   close = output<void>();
   save = output<ProductFormData>();
   categories = signal<Category[]>([]);
+  product = input<Product | null>(null);
 
   private fb = inject(FormBuilder);
   private productModalService = inject(ProductModalService);
@@ -45,5 +47,16 @@ export class ProductEditModalComponent implements OnInit {
 
   ngOnInit() {
     this.productModalService.getCategories().subscribe(data => this.categories.set(data));
+
+    const p = this.product();
+    if (p) {
+      this.form.patchValue({
+        name: p.name,
+        description: p.description || '',
+        category_id: p.category_id,
+        unit: p.unit,
+        status: p.status,
+      });
+    }
   }
 }
